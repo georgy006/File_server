@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.filerfx.controllers.LoginController">
+   <children>
+      <Label layoutX="37.0" layoutY="10.0" text="Авторизация">
+         <font>
+            <Font name="Comic Sans MS Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentUserLabel" layoutX="81.0" layoutY="92.0" text="Вы еще не вошли">
+         <font>
+            <Font name="Comic Sans MS" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameField" layoutX="41.0" layoutY="124.0" promptText="Имя пользователя">
+         <font>
+            <Font name="Comic Sans MS" size="16.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="passwordField" layoutX="41.0" layoutY="168.0" promptText="Пароль">
+         <font>
+            <Font name="Comic Sans MS" size="16.0" />
+         </font>
+      </PasswordField>
+   
+         <HBox alignment="CENTER" layoutX="22.0" layoutY="256.0" spacing="10">
+         <Button onAction="#handleLogin" text="Войти">
+            <font>
+               <Font name="Comic Sans MS" size="16.0" />
+            </font>
+         </Button>
+         <Button onAction="#goToRegister" text="Зарегистрироваться">
+            <font>
+               <Font name="Comic Sans MS" size="16.0" />
+            </font>
+         </Button>
+      </HBox>
+   </children>
+</AnchorPane>

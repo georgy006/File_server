@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/filer_v2
+    username: postgres
+    password: pgpwd4
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:db/changelog/changelog-root.yaml
+    enabled: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
