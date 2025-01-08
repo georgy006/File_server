@@ -8,6 +8,7 @@ module com.example.filerfx {
     // Для работы с REST API через Spring
     requires spring.web;
     requires com.fasterxml.jackson.databind;
+    requires java.logging;
 
     // Открываем доступ для JavaFX FXML и работы с контроллерами
     opens com.example.filerfx to javafx.fxml;

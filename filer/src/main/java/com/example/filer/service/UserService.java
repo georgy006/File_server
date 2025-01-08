@@ -7,8 +7,7 @@ import java.util.List;
 public interface UserService {
     List<User> getUsers();
     User createUser(User user);
-
     User getUserByName(String userName);
     void deleteUserById(Long id);
-    String getUserStatus(String username);
+    boolean verifyPassword(String rawPassword, String encodedPassword);
 }

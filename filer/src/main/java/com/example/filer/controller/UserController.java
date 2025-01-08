@@ -25,16 +25,17 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         User existingUser = userService.getUserByName(user.getUsername());
 
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
+        if (existingUser != null && userService.verifyPassword(user.getPassword(), existingUser.getPassword())) {
             String token = jwtUtil.generateToken(existingUser.getUsername(), existingUser.getStatus());
-            return ResponseEntity.ok(token); // Возвращаем токен
+            return ResponseEntity.ok(token);
         } else {
             return ResponseEntity.status(401).body("Неверный логин или пароль.");
         }
     }
     @PostMapping("/register")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.createUser(user);
+        return ResponseEntity.ok(createdUser);
     }
     @GetMapping("/{username}")
     public User getUserByName(@PathVariable String username) {

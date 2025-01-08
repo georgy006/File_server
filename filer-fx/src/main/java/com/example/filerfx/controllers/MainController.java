@@ -51,24 +51,35 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        // Связываем колонки с полями модели MyFile
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         pathColumn.setCellValueFactory(new PropertyValueFactory<>("path"));
+    }
+    public void initializeWithToken(String jwtToken) {
+        this.jwtToken = jwtToken;
+        System.out.println("JWT-токен успешно передан в MainController: " + jwtToken);
+
         loadFiles();
     }
 
-    @FXML
     public void loadFiles() {
+        if (jwtToken == null || jwtToken.isEmpty()) {
+            showAlert("Ошибка", "JWT-токен не установлен. Пожалуйста, войдите заново.");
+            return;
+        }
+
         try {
             List<MyFile> files = fileService.getAllFiles(jwtToken);
             ObservableList<MyFile> observableFiles = FXCollections.observableArrayList(files);
             fileTable.setItems(observableFiles);
+            System.out.println("Файлы успешно загружены.");
         } catch (Exception e) {
             showAlert("Ошибка", "Не удалось загрузить файлы: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
 
     @FXML
     public void downloadSelectedFile() {

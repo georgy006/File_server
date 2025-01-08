@@ -45,27 +45,25 @@ public class LoginController {
             return;
         }
 
+        System.out.println("Попытка входа:");
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+
         try {
-            // Получаем JWT-токен от сервера
             jwtToken = fileService.loginUser(username, password);
+            System.out.println("Получен JWT-токен: " + jwtToken);
 
             if (jwtToken == null || jwtToken.isEmpty()) {
                 showAlert("Ошибка", "Неверные учетные данные.");
                 return;
             }
 
-            // Создаем текущего пользователя с полученным токеном
-            currentUser = new User(username, password, "ВИП"); // Статус можно получать с сервера
-            updateCurrentUserLabel();
-
-            // Переход на главное окно
             FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main.fxml"));
             Stage stage = (Stage) usernameField.getScene().getWindow();
             Scene scene = new Scene(fxmlLoader.load());
 
-            // Получаем контроллер главного окна и передаем в него токен
             MainController mainController = fxmlLoader.getController();
-            mainController.setJwtToken(jwtToken); // Передаем токен в главный экран
+            mainController.initializeWithToken(jwtToken); // Передаём токен и вызываем loadFiles
 
             stage.setScene(scene);
             stage.setResizable(false);
@@ -75,8 +73,11 @@ public class LoginController {
             showAlert("Ошибка", "Не удалось загрузить главное окно: " + e.getMessage());
         } catch (Exception e) {
             showAlert("Ошибка", "Произошла ошибка при входе: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
+
 
 
     @FXML
